@@ -1,34 +1,4 @@
-	
-	
-/*
-void light_pass(inout fragmentPass pass, inout lightObject light)
-{
-	light.normalDotLight = clamp( light.normalDotLight, 0.0, 1.0);
 
-	mediump vec3 cDiffuse = vec3(light.normalDotLight);                                             // 1 alu
-			
-	vec3 vHalf = normalize( light.position.xyz + normalize(pass.eye.xyz);                                   // 4 alu
-	float NdotH = clamp( dot( pass.normal.xyz, vHalf.xyz), 0.0, 1.0 );                                     // 1 alu                    
-
-	float fSelfShadow = clamp( light.normalDotLight * 4.0, 0.0, 1.0 );
-
-	vec3 cSpecular = vec3(0.0);
-
-	cSpecular = vec3(pow( NdotH, pass.specularPower));                                                           // 3 alu    
-
-	cDiffuse *=  light.diffuse;                                                                     // 1 alu
-	cSpecular *=  light.specular * fSelfShadow;                                                     // 1 alu
-
-	
-	vec3 cK = vec3(light.falloff * light.filter);  // pLight.fOcclShadow *                              // 2 alu 
-
-	pass.diffuseAcc.xyz += cDiffuse.xyz * cK.xyz;  
-	pass.specularAcc.xyz += cSpecular.xyz * cK.xyz;
- 
-}
-
-		
-	*/
 	void light_pass(inout fragmentPass pass, inout lightObject light)
 	{
 		light.normalDotLight = clamp( light.normalDotLight, 0.0, 1.0);
