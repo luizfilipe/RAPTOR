@@ -448,7 +448,7 @@ raptorjs.renderSystem.prototype.drawQuad = function(shader, framebuffer, noUpdat
 		gl.bindFramebuffer(gl.FRAMEBUFFER, framebuffer );
 		gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 		
-		raptorjs.skyInstance.update();
+		//raptorjs.skyInstance.update();
 		
 		gl.viewport(0, 0, raptorjs.width, raptorjs.height);
 	

@@ -77,10 +77,8 @@ Author: Kaj Dijksta
 		raptorjs.mainCamera.update();
 		raptorjs.mainPlayer.update();
 			
-		raptorjs.testAnimationManager = raptorjs.createObject("animationManager");
+		//raptorjs.testAnimationManager = raptorjs.createObject("animationManager");
 		raptorjs.resources = raptorjs.createObject("resourceManager");
-		
-		raptorjs.sandbox = raptorjs.createObject("particleSandbox");
 		
 		//set camera and scene
 		raptorjs.system.setCamera( raptorjs.mainCamera );
@@ -100,14 +98,12 @@ Author: Kaj Dijksta
 
 			var sceneManager = raptorjs.createObject("sceneManager");
 
-			sceneManager.createScene("Sponza", "testt.json");//testt
+			sceneManager.createScene("Sponza", "tank.json");//testt
 
 			raptorjs.system.createDeferredBuffers();
 			
-			raptorjs.skyInstance = raptorjs.createObject("sky");
+		 //	raptorjs.skyInstance = raptorjs.createObject("sky");
 			//raptorjs.oceanInstance = raptorjs.createObject("seaShore");
-			
-			raptorjs.sandbox.create();
 			
 			tick();	
 		}
@@ -203,9 +199,7 @@ Author: Kaj Dijksta
 		raptorjs.mainPlayer.update();
 		raptorjs.mainCamera.update();
 	
-	
-		raptorjs.sandbox.update();
-			//raptorjs.system.updateBuffers();
+			raptorjs.system.updateBuffers();
 			
 			//var rootBone = raptorjs.system.skeletons[0].root;
 			//raptorjs.system.updateBones(rootBone,rootBone.transformation);	
