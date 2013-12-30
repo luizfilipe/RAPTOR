@@ -98,7 +98,7 @@ Author: Kaj Dijksta
 
 			var sceneManager = raptorjs.createObject("sceneManager");
 
-			sceneManager.createScene("Sponza", "tank.json");//testt
+			sceneManager.createScene("Sponza", "scene.json");//testt
 
 			raptorjs.system.createDeferredBuffers();
 			
