@@ -49,7 +49,6 @@ raptorjs.camera = function() {
 	this.worldViewProjection;
 	
 	this.center = raptorjs.vector3(-146, 1383, 78);
-	
 	this.rotationSpeed = .1;
 
 	this.mode = "orbit"; //freeLook, orbit
@@ -178,12 +177,12 @@ raptorjs.camera.prototype.orbit = function() {
 	var mix = Math.max(0, Math.min(1, elapsed/120));
 
 	var smooth = raptorjs.vector2.interpolate(	raptor.events.clientMouse,
-												raptor.events.oldMousPos,
+												raptor.events.tempMouse,
 												mix );
 												
-	raptor.events.mouseDiff = [raptor.events.clientMouse[0] - raptor.events.oldMousPos[0], raptor.events.clientMouse[1] - raptor.events.oldMousPos[1]];
+	raptor.events.mouseDiff = [raptor.events.clientMouse[0] - raptor.events.tempMouse[0], raptor.events.clientMouse[1] - raptor.events.tempMouse[1]];
 
-	raptor.events.oldMousPos = raptor.events.clientMouse;
+	raptor.events.tempMouse = raptor.events.clientMouse;
 
 	if( raptor.events.mouseDown[1] || raptor.events.mouseDown[2] ) {
 		if( raptor.events.mouseDiff[0]!=0 || raptor.events.mouseDiff[1]!=0 ) {

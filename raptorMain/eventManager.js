@@ -37,7 +37,6 @@ THE SOFTWARE.
  */
 raptorjs.eventManager = function() {
 	this.tempMouse = raptorjs.vector2(0,0);
-	this.oldMousPos = raptorjs.vector2(0,0);
 	this.mouseDiff = raptorjs.vector2(0,0);
 	this.mouseDown = raptorjs.vector3(0,0,0);
 
@@ -64,14 +63,13 @@ raptorjs.eventManager = function() {
 **/
 mouseMoveHandler = function (e) {
 
-	raptorjs.events.tempMouse = [ e.screenX, e.screenY ];
 	raptorjs.events.clientMouse = [ e.screenX , e.screenY ];
 	
 	if( raptorjs.events.mouseDown[1] || raptorjs.events.mouseDown[2] )
 		raptorjs.events.lastTime  = new Date().getTime();
 
-	if(!raptorjs.events.oldMousPos)
-		raptorjs.events.oldMousPos = raptorjs.events.tempMouse;
+	if(!raptorjs.events.tempMouse)
+		raptorjs.events.tempMouse = raptorjs.events.clientMouse;
 };
 
 
