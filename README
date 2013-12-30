@@ -1,8 +1,7 @@
 RaptorEngine - a Open Source 3D Graphics Engine Based On Webgl
 
 
-
-Features 
+### Features 
 
 Diffuse Mapping
 Specular Mapping
@@ -21,9 +20,29 @@ CubeTexture Mapping
 Shader Validation
 
 
+### Shading and Lighting
+
+At the hard of Raptor engine lies 1 uber shader Where all possible material shading types are being 
+processed, like shadow occlusion and all the different maps and bones etc. Every material is rendered
+using the same Ubershader, The data is being structured here in universal way and all the complex algorithms 
+are also in here. The lightning is done in a "Custom shader", This is a very tiny shader that only 
+calculates the lightning. If you want pong lightning you can just use the default Custom shader "custom.default.shader"
+in the shader folder, If you want a different lightning type you can write one yourself . 
+
+The ubershader you can find in "https://github.com/kajdijkstra/RAPTOR/blob/master/shaders/colorInfo.shader"
 
 
-Importer
+Because different maps often get lost when being exported with 3ds max if have made the engine such that
+it searches for maps trough the use of the prefix in the filename of the texture, So for example:
+
+Texture_diff.png	// Diffuse
+Texture_spec.png	// Specular
+Texture_ddn.png		// Normal
+
+Animations, Vertices, Bones, transformations, Scenes and other Data structures are all preserved in Raptor engine. 
+
+
+### Importer
 
 The Assimp data structure is deeply embedded in the Raptorengine pipeline, First one needs to convert the 
 specified 3d format to json using the AssimpToJson executable one can fine at:
