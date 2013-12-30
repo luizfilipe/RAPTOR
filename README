@@ -1,7 +1,35 @@
+
+-----------------------------------------------------------------------------
+
+Raptor Engine
+
+Copyright (c) 2013-2014 Raptorcode
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+-----------------------------------------------------------------------------
+
+
+
 RaptorEngine - a Open Source 3D Graphics Engine Based On Webgl
 
 
-### Features 
+Features 
 
 Diffuse Mapping
 Specular Mapping
@@ -20,7 +48,7 @@ CubeTexture Mapping
 Shader Validation
 
 
-### Shading and Lighting
+Shading and Lighting
 
 At the Heart of Raptor engine lies 1 uber shader Where all possible material shading types are being 
 processed, like shadow occlusion and all the different maps and bones etc. Every material is rendered
@@ -44,7 +72,7 @@ Texture_ddn.png		// Normal
 Animations, Bones, transformations, hierarchies, Scenes and other Data structures are all preserved in Raptor engine. 
 
 
-### Importer
+Importer
 
 The Assimp data structure is deeply embedded in the Raptorengine pipeline, First one needs to convert the 
 specified 3d format to json using the AssimpToJson executable one can fine at:
