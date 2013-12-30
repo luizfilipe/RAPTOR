@@ -28,37 +28,41 @@ THE SOFTWARE.
 Author: Kaj Dijksta
 
 */
- 
-	raptorjs.skeleton = function() {
-		this.root;
-		this.bones = [];
-	}
-	
-	raptorjs.skeleton.prototype.getBoneByName = function(name){
-		var bones = this.bones;
-		for(var c = 0; c<bones.length; c++) {
-			var bone = bones[c];
-			if(bone.name == name) {
-				return bones[c];
-			}
-		}
-				
-		return false;
-	}
-	
-	
-	raptorjs.bone = function() {
-		this.name;
-		
-		this.parent;
-		
-		this.children = [];
-		
-		this.transformation;
-		this.offsetmatrix;
-		this.finalTransformation;
-	}
+  
+  
+/**
+ * Boundingbox
+**/
+raptorjs.boundingBox = function() {
+	this.maxExtent = [0, 0, 0];
+	this.minExtent = [0, 0, 0];
+	this.intersectionVector;
+}
 
-	raptorjs.bone.prototype.addChild = function(bone){
-		this.children.push(bone);
+
+/**
+ * make boundingbox as big as point cloud
+ * @param {(array)} points
+**/
+raptorjs.boundingBox.prototype.fitBoxToPoints_ = function(points) {
+
+  var minVector;
+
+  for (var index = 0; index < 3; ++index) {
+	this.maxExtent[index] = this.minExtent[index] = points[0][index];
+
+	for (var i = 1; i < points.length; ++i) {
+		var point = points[i];
+
+		if(this.minExtent[index] > point[i] && index == 1)
+		var minVector = point;
+
+		this.minExtent[index] = Math.min(this.minExtent[index], point[index]);
+		this.maxExtent[index] = Math.max(this.maxExtent[index], point[index]);
 	}
+  }
+   
+  this.intersectionVector = minVector;
+
+  this.valid = true;
+}
