@@ -31,15 +31,17 @@ in the shader folder, If you want a different lightning type you can write one y
 
 The ubershader you can find in "https://github.com/kajdijkstra/RAPTOR/blob/master/shaders/colorInfo.shader"
 
+The Custom shader here: https://github.com/kajdijkstra/RAPTOR/blob/master/shaders/custom.default.shader
 
-Because different maps often get lost when being exported with 3ds max if have made the engine such that
+
+Because different maps often get lost when being exported with 3ds max, I have have made the engine such that
 it searches for maps trough the use of the prefix in the filename of the texture, So for example:
 
 Texture_diff.png	// Diffuse
 Texture_spec.png	// Specular
 Texture_ddn.png		// Normal
 
-Animations, Vertices, Bones, transformations, Scenes and other Data structures are all preserved in Raptor engine. 
+Animations, Bones, transformations, hierarchies, Scenes and other Data structures are all preserved in Raptor engine. 
 
 
 ### Importer
