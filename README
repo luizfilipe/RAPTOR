@@ -22,7 +22,7 @@ Shader Validation
 
 ### Shading and Lighting
 
-At the hard of Raptor engine lies 1 uber shader Where all possible material shading types are being 
+At the Heart of Raptor engine lies 1 uber shader Where all possible material shading types are being 
 processed, like shadow occlusion and all the different maps and bones etc. Every material is rendered
 using the same Ubershader, The data is being structured here in universal way and all the complex algorithms 
 are also in here. The lightning is done in a "Custom shader", This is a very tiny shader that only 
