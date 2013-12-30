@@ -49,17 +49,9 @@ Author: Kaj Dijksta
     raptorjs.lastTime = 0;
 	
 	//plugin related vars
-	raptorjs.seaInstance;
-	raptorjs.skyInstance;
-	raptorjs.grayImage;
-	raptorjs.sunLight;
 	raptorjs.errorTexture;
 	raptorjs.errorCubeSampler;
-	raptorjs.planet;
-	raptorjs.oceanInstance;
-	raptorjs.pointSprite;
-	raptorjs.skyInstance;
-	raptorjs.sandbox;
+
 	
 	/**
 	 * Application
@@ -84,17 +76,10 @@ Author: Kaj Dijksta
 		raptorjs.system.setCamera( raptorjs.mainCamera );
 		raptorjs.system.setScene( raptorjs.scene );
 
-
 		raptorjs.resources.finishCallback = function( ) {	
-			document.getElementById('controls').style.visibility="hidden";
+		
 			raptorjs.createErrorTexture();
 			raptorjs.system.setup();
-			
-			raptorjs.logo = raptorjs.createObject("logo");
-			raptorjs.logo.create();
-			raptorjs.logo.update();
-
-			typedText();
 
 			var sceneManager = raptorjs.createObject("sceneManager");
 
@@ -102,90 +87,16 @@ Author: Kaj Dijksta
 
 			raptorjs.system.createDeferredBuffers();
 			
-		 //	raptorjs.skyInstance = raptorjs.createObject("sky");
-			//raptorjs.oceanInstance = raptorjs.createObject("seaShore");
-			
 			tick();	
 		}
 		
-		//animateLoadingBar();
-		
-		raptorjs.resources.addTexture("media/textures/white.png", 'white');
-		raptorjs.resources.addTexture("media/textures/height1.png", 'water_bump');//height1.png water_bump.png
-		raptorjs.resources.addTexture("media/textures/norm1.png", 'water_bump_norm');
-		
-		raptorjs.resources.addTexture("media/textures/bigNoise.png", 'noise');
-		
-		raptorjs.resources.addTexture("media/textures/cubeMap/posx.jpg", 'posx');
-		raptorjs.resources.addTexture("media/textures/cubeMap/posy.jpg", 'posy');
-		raptorjs.resources.addTexture("media/textures/cubeMap/posz.jpg", 'posz');
-		
-		raptorjs.resources.addTexture("media/textures/cubeMap/negx.jpg", 'negx');
-		raptorjs.resources.addTexture("media/textures/cubeMap/negy.jpg", 'negy');
-		raptorjs.resources.addTexture("media/textures/cubeMap/negz.jpg", 'negz');
-		
-		//raptorjs.resources.addTexture("media/textures/random.png", 'random');
-		//raptorjs.resources.addTexture("media/textures/ssao.png", 'ssao');
-		//raptorjs.resources.addTexture("media/textures/rotrandom.png", 'rotrandom');
-		//raptorjs.resources.addTexture("media/textures/Unigine01.png", 'unigine');
-		//raptorjs.resources.addTexture("media/textures/noise.png", 'noise');
-		//raptorjs.resources.addTexture("media/textures/SMAA/AreaTex.png", 'AreaTex');
-		//raptorjs.resources.addTexture("media/textures/SMAA/SearchTex.png", 'SearchTex');
-		
-		//raptorjs.resources.addTexture("media/textures/ssao.png", 'ssao');
-		//raptorjs.resources.addTexture("media/textures/randomRotation.png", 'randomRotation');
+
+
 		raptorjs.resources.addTexture("media/textures/sky.png", 'sky');
-		raptorjs.resources.addTexture("media/textures/sponza/sun.png", 'sun');
-		raptorjs.resources.addTexture("media/textures/lichen1_normal.png", 'lichen1_normal');
-		raptorjs.resources.addTexture("media/textures/rock_bump6.png", 'black');
+
 		raptorjs.resources.load();
     }
 	
-	raptorjs.logo;
-
-	
-	var loadingPointer = 0;
-	var textArray = ['Downloading Models'];
-	var loadingTexts = ['', '.', '..', '...'];
-	var loadTo = 0;
-	var loadingProgress = 0;
-	
-	
-	function typedText() {
-		if(document.getElementById('loadingBlock')) {
-			document.getElementById('loadingBlock').children[0].innerHTML = textArray[0]+loadingTexts[loadingPointer++];
-			
-			if(loadingPointer == 4)
-				loadingPointer = 0;
-		
-		
-			
-			setTimeout(function(){typedText() },500);
-		}
-	}
-	
-	
-	function animateLoadingBar() {
-	
-
-		if(loadingProgress < loadTo && document.getElementById('innerBar')) {
-			document.getElementById('innerBar').style.width=loadingProgress+'%';
-			loadingProgress+=.03;
-		}
-		
-		setTimeout(function(){animateLoadingBar() },20);
-	}
-	
-	function updateLoadingBar(totalNumberOfFiles, currentFile) {
-		if(loadTo < 50)
-		loadTo = (currentFile / totalNumberOfFiles) * 50;
-	}
-	
-	function updateLoadingBarTexture(totalNumberOfFiles, currentFile) {
-	
-		loadTo = 50 +  ( (currentFile / totalNumberOfFiles) * 50 );
-		console.log(totalNumberOfFiles, currentFile,loadTo);
-	}
 	
 	/**
 	 * Rendercallback gets called every frame
@@ -195,29 +106,13 @@ Author: Kaj Dijksta
 	
 		if(raptorjs.system.ready) {
 	
-	
-		raptorjs.mainPlayer.update();
-		raptorjs.mainCamera.update();
-	
+			raptorjs.mainPlayer.update();
+			raptorjs.mainCamera.update();
+		
 			raptorjs.system.updateBuffers();
 			
-			//var rootBone = raptorjs.system.skeletons[0].root;
-			//raptorjs.system.updateBones(rootBone,rootBone.transformation);	
-			//raptorjs.lightshafts.update();
-			
-			//raptorjs.skyInstance.update();
-			
-		
-			
-		} else {
-		raptorjs.logo.update();	
 		}
-	//	raptorjs.oceanInstance.render();
-
-		//raptorjs.oceanInstance.pipeline();
-		//raptorjs.planet.update();
-		//raptorjs.oceanInstance.drawQuad(raptorjs.ocean.shader, null);
-
+		
     }
 	
 	

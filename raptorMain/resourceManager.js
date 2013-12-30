@@ -269,15 +269,13 @@ raptorjs.resourceManager.prototype.addTexture = function(adress, name, direct) {
 };
 
 raptorjs.resourceManager.prototype.load  = function( objectCaller ) {
-	textArray[0] = "Downloading Textures";
-	
+
 	if(this.loadingList.length > 0) {
 		
 		var currentTexture = this.loadingList.pop();
 		//console.log('loading: ', currentTexture);
 		this.loadTexture(currentTexture.adress, currentTexture.name, objectCaller);
 		
-
 	} 
 	
 	for(var c = 0; c<this.loadingList.length; c++) {
@@ -319,7 +317,7 @@ raptorjs.resourceManager.prototype.loadTexture = function(url, name, objectCalle
 			texture.name = this.name;
 			texture.url = this.relativeSrc;
 			
-			updateLoadingBarTexture(raptorjs.resources.textureTotal,raptorjs.resources.textures.length);
+			//updateLoadingBarTexture(raptorjs.resources.textureTotal,raptorjs.resources.textures.length);
 			
 			raptorjs.resources.textures.push(texture);
 			
