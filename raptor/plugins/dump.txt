@@ -1,0 +1,409 @@
+
+						
+
+		var JITTER_SIZE = 32;
+		var RAND_MAX = 1.0;
+		var JITTER_SAMPLES = 8;
+		var data = [];
+		
+		var lb = {};
+		lb.SlicePitch = 1.0 / 256;
+		lb.RowPitch = 1.0 / 256;
+		
+		for (var i = 0; i<JITTER_SIZE; i++) {
+			for (var j = 0; j<JITTER_SIZE; j++) {
+				var rot_offset = (Math.random() / RAND_MAX - 1) * 2 * 3.1415926;
+
+				for (var k = 0; k<JITTER_SAMPLES*JITTER_SAMPLES/2; k++) {
+
+					var x, y;
+					
+					var v = [];
+
+					x = k % (JITTER_SAMPLES / 2);
+					y = (JITTER_SAMPLES - 1) - k / (JITTER_SAMPLES / 2);
+
+					v[0] = (x * 2 + 0.5) / JITTER_SAMPLES;
+					v[1] = (y + 0.5) / JITTER_SAMPLES;
+					v[2] = (x * 2 + 1 + 0.5) / JITTER_SAMPLES;
+					v[3] = v[1];
+					
+					// jitter
+					v[0] += (Math.random() * 2 / RAND_MAX - 1) / JITTER_SAMPLES;
+					v[1] += (Math.random() * 2 / RAND_MAX - 1) / JITTER_SAMPLES;
+					v[2] += (Math.random() * 2 / RAND_MAX - 1) / JITTER_SAMPLES;
+					v[3] += (Math.random() * 2 / RAND_MAX - 1) / JITTER_SAMPLES;
+
+					// warp to disk
+					var d = [];
+					d[0] = sqrt(v[1]) * cos(2 * 3.1415926 * v[0] + rot_offset);
+					d[1] = sqrt(v[1]) * sin(2 * 3.1415926 * v[0] + rot_offset);
+					d[2] = sqrt(v[3]) * cos(2 * 3.1415926 * v[2] + rot_offset);
+					d[3] = sqrt(v[3]) * sin(2 * 3.1415926 * v[2] + rot_offset);
+
+					d[0] = (d[0] + 1.0) / 2.0;
+					data[k*lb.SlicePitch + j*lb.RowPitch + i*4 + 0] = (d[0] * 255);
+					d[1] = (d[1] + 1.0) / 2.0;
+					data[k*lb.SlicePitch + j*lb.RowPitch + i*4 + 1] = (d[1] * 255);
+					d[2] = (d[2] + 1.0) / 2.0;
+					data[k*lb.SlicePitch + j*lb.RowPitch + i*4 + 2] = (d[2] * 255);
+					d[3] = (d[3] + 1.0) / 2.0;
+					data[k*lb.SlicePitch + j*lb.RowPitch + i*4 + 3] = (d[3] * 255);
+				}
+			}
+		}
+
+		var jitterTexture = raptorjs.textureFromArray(data, JITTER_SIZE, JITTER_SIZE, true);
+		var jitterSampler = raptorjs.createObject("sampler2D");
+		jitterSampler.texture = jitterTexture;
+
+raptorjs.planet = function(){
+	this.shader;
+	this.entity;
+
+	
+	this.transmittance;
+	this.irradiance1;
+	this.inscatter1;
+	
+	
+	this.transmittanceUnit;
+	this.irradianceUnit;
+	this.currentDeltaSRayUnit;
+	this.deltaSRayUnitPing;
+	this.deltaSRayUnitPong;
+	
+	
+	this.dSampler;
+	this.rSampler;
+	
+	this.deltaSRaySampler;
+	
+	this.test;
+	this.radius = 10.0;
+
+
+	this.Rg = 6360.0;
+	this.Rt = 6420.0;
+	this.RL = 6421.0;
+
+	this.TRANSMITTANCE_W = 256;
+	this.TRANSMITTANCE_H = 64;
+
+	this.SKY_W = 64;
+	this.SKY_H = 16;
+
+	this.RES_R = 32;
+	this.RES_MU = 128;
+	this.RES_MU_S = 32;
+	this.RES_NU = 8;
+	
+	this.quadVertexBuffer;				
+	this.quadIndexBuffer;		
+	
+	this.createBuffers();
+	this.createPlanet();
+	this.createAtmosphere();
+	
+
+// helper
+//gl.enable(gl.DEPTH_TEST);
+//gl.depthFunc(gl.LEQUAL);
+//gl.blendEquation( gl.FUNC_ADD );
+//gl.blendFunc( gl.SRC_ALPHA, gl.ONE );
+//gl.frontFace(gl.CW);
+//gl.enable(gl.CULL_FACE);
+}
+
+raptorjs.planet.prototype.createBuffers = function() {
+	this.quadVertexBuffer = gl.createBuffer();
+	gl.bindBuffer(gl.ARRAY_BUFFER, this.quadVertexBuffer);
+	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([  -1.0, -1.0,
+														1.0, -1.0,
+													   -1.0,  1.0,
+													   -1.0,  1.0,
+														1.0, -1.0,
+														1.0,  1.0 ]), gl.STATIC_DRAW);
+														
+	this.quadIndexBuffer = gl.createBuffer();
+	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.quadIndexBuffer);
+	gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array([ 0, 2, 1, 2, 3,1 ]), gl.STATIC_DRAW);
+
+}
+
+raptorjs.planet.prototype.createPlanet = function() {
+	var texture = raptorjs.resources.getTexture("mars_normal");
+
+	var bumpSampler =  raptorjs.createObject("sampler2D");
+	bumpSampler.texture = texture;
+	
+	var texture = raptorjs.resources.getTexture("mars_texture");
+	
+	var textureSampler =  raptorjs.createObject("sampler2D");
+	textureSampler.texture = texture;
+	
+	this.shader = raptorjs.createObject("shader");
+	this.shader.createFomFile("shaders/planet2.shader");
+	this.shader.setUniform('DiffuseSampler', textureSampler);
+
+	this.entity = raptorjs.primitives.createSphere(this.radius/10, 40, 40);
+	this.entity.shader = this.shader;
+}
+
+
+raptorjs.planet.prototype.switchDeltaSRayFramebuffer = function() {
+	var currentBuffer = this.deltaSRayUnit;
+	if(currentBuffer && currentBuffer.name == "ping") {
+		this.deltaSRayUnit = this.deltaSRayUnitPong;
+	} else {
+		this.deltaSRayUnit = this.deltaSRayUnitPing;
+	}
+}
+
+raptorjs.planet.prototype.createAtmosphere = function() {
+
+	this.transmittanceUnit = raptorjs.system.createFrameBuffer(this.TRANSMITTANCE_W, this.TRANSMITTANCE_H, gl.FLOAT);
+	this.irradianceUnit = raptorjs.system.createFrameBuffer(this.SKY_W, this.SKY_H, gl.FLOAT);
+	
+	this.deltaSRayUnitPing = raptorjs.system.createFrameBuffer(this.RES_MU_S * this.RES_NU, this.RES_MU, gl.FLOAT);
+	this.deltaSRayUnitPong = raptorjs.system.createFrameBuffer(this.RES_MU_S * this.RES_NU, this.RES_MU, gl.FLOAT);
+	this.currentDeltaSRayUnit = this.deltaSRayUnitPong;
+	
+	console.log(Math.sqrt( (this.RES_MU_S * this.RES_NU) * this.RES_MU * this.RES_R ) );
+	 
+	var transmittanceTexture = textureFromFramebuffer( this.transmittanceUnit );
+	var irradianceTexture = textureFromFramebuffer( this.irradianceUnit );
+	var deltaSRayUnitPingTexture = textureFromFramebuffer( this.deltaSRayUnitPing );
+	var deltaSRayUnitPongTexture = textureFromFramebuffer( this.deltaSRayUnitPong );
+
+	
+	this.transmittanceSampler = createSampler( transmittanceTexture );;
+	this.deltaSRayUnitPing.sampler = createSampler( deltaSRayUnitPingTexture );
+	this.deltaSRayUnitPong.sampler = createSampler( deltaSRayUnitPongTexture );
+	
+	
+	var libShader = raptorjs.createObject("shader");
+	
+	libShader.createLibraryFomFile("shaders/precomputed/common.glsl");
+	libShader.setUniform('Rg', 6360 );
+	libShader.setUniform('Rt', 6420 );
+	libShader.setUniform('RL', 6421 );
+	
+	libShader.setUniform('TRANSMITTANCE_W', 256 );
+	libShader.setUniform('TRANSMITTANCE_H', 64 );
+	
+	libShader.setUniform('SKY_W', 64 );
+	libShader.setUniform('SKY_H', 16 );
+	
+	libShader.setUniform('RES_R', 32 );
+	libShader.setUniform('RES_MU', 128 );
+	libShader.setUniform('RES_MU_S', 32 );
+	libShader.setUniform('RES_NU', 8 );
+
+
+	this.transmittance = raptorjs.createObject("shader");
+	this.transmittance.addLibrary(libShader, 1);
+	this.transmittance.createFomFile("shaders/precomputed/transmittance.glsl");
+	
+	
+	this.irradiance1 = raptorjs.createObject("shader");
+	this.irradiance1.addLibrary(libShader, 1);
+	this.irradiance1.createFomFile("shaders/precomputed/irradiance1.glsl");
+	this.irradiance1.setUniform('transmittanceSampler', this.transmittanceSampler );
+	
+	this.inscatter1 = raptorjs.createObject("shader");
+	this.inscatter1.addLibrary(libShader, 1);
+	this.inscatter1.createFomFile("shaders/precomputed/inscatter1Ray.glsl");
+	this.inscatter1.setUniform('transmittanceSampler', this.transmittanceSampler );
+
+	console.log(this.inscatter1);
+	
+	var rArray = [];
+	var dArray = [];
+	for (var layer = 0; layer < this.RES_R + 4; ++layer) {
+		var r = layer / (this.RES_R - 1.0);
+
+		r = r * r;
+
+		r = Math.sqrt(this.Rg * this.Rg + r * (this.Rt * this.Rt - this.Rg * this.Rg)) + (layer == 0 ? 0.01 : (layer == this.RES_R - 1 ? -0.001 : 0.0));
+		var dmin = this.Rt - r;
+		var dmax = Math.sqrt(r * r - this.Rg * this.Rg) + Math.sqrt(this.Rt * this.Rt - this.Rg * this.Rg);
+		var dminp = r - this.Rg;
+		var dmaxp = Math.sqrt(r * r - this.Rg * this.Rg);
+		
+		var d = [dmin, dmax, dminp, dmaxp];
+		
+		dArray.push(d);
+		rArray.push([r, 0, 0, 1]);
+	}
+	
+	var size = Math.sqrt(this.RES_R + 4);
+	
+	var dTexture = raptorjs.textureFromArray(dArray, size, size, true);
+	this.dSampler = raptorjs.createObject("sampler2D");
+	this.dSampler.texture = dTexture;
+	
+	var rTexture = raptorjs.textureFromArray(rArray, size, size, true);
+	this.rSampler = raptorjs.createObject("sampler2D");
+	this.rSampler.texture = dTexture;
+
+	console.log(dArray.length, rArray, Math.sqrt(this.RES_R + 4));
+	
+	
+}
+
+function textureFromFramebuffer( framebuffer ) {
+	var texture = raptorjs.createObject('texture');
+	texture.dataType = 'framebuffer';
+	texture.data = framebuffer.texture;
+	texture.width = framebuffer.width;
+	texture.height = framebuffer.height;
+	framebuffer.texture = texture;
+	
+	return texture;
+}
+
+
+function createSampler(texture){
+	var sampler = raptorjs.createObject("sampler2D");
+	sampler.texture = texture;
+	return sampler;
+}
+
+var aaaa= 0;
+
+raptorjs.planet.prototype.update = function(){
+	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+	this.renderPlanet();
+	this.renderAtmosphere();
+} 
+
+
+
+raptorjs.planet.prototype.renderPlanet = function(){
+	var entity = this.entity;
+	var shader = entity.shader;
+	
+	var shaderProgram = shader.program;
+	gl.useProgram(shaderProgram);
+	var world = raptorjs.matrix4.identity();
+	//world = raptorjs.matrix4.rotateX(world, aaaa/1000,0);
+	
+	worldViewProjection = raptorjs.matrix4.composition(raptorjs.mainCamera.view, world);
+	worldViewProjection = raptorjs.matrix4.composition(raptorjs.mainCamera.worldViewProjection, raptorjs.mainCamera.view);
+	
+	var worldInverseTranspose =  world;
+	
+	//shader.setUniform('worldViewProjection', worldViewProjection);
+	//shader.setUniform('worldInverseTranspose',  worldInverseTranspose);
+	//shader.setUniform('viewInverse', raptorjs.matrix4.inverse( raptorjs.mainCamera.view ) );
+	shader.setUniform('world', world );
+	shader.setUniform('view', raptorjs.mainCamera.view);
+	shader.setUniform('projection', raptorjs.mainCamera.projection);
+	
+	shader.update();
+	
+	var attribute = shader.getAttributeByName('normal');
+	gl.bindBuffer(gl.ARRAY_BUFFER, entity.normalBuffer);
+	gl.vertexAttribPointer(attribute, entity.normalBuffer.itemSize, gl.FLOAT, false, 0, 0);
+	
+	var attribute = shader.getAttributeByName('binormal');
+	gl.bindBuffer(gl.ARRAY_BUFFER, entity.binormalBuffer);
+	gl.vertexAttribPointer(attribute, entity.binormalBuffer.itemSize, gl.FLOAT, false, 0, 0);
+	
+	var attribute = shader.getAttributeByName('tangent');
+	gl.bindBuffer(gl.ARRAY_BUFFER, entity.tangentBuffer);
+	gl.vertexAttribPointer(attribute, entity.tangentBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+	
+	var attribute = shader.getAttributeByName('uv');
+	gl.bindBuffer(gl.ARRAY_BUFFER, entity.uvBuffer);
+	gl.vertexAttribPointer(attribute, 2, gl.FLOAT, false, 0, 0);
+	
+	var attribute = shader.getAttributeByName('position');
+	gl.bindBuffer(gl.ARRAY_BUFFER, entity.vertexBuffer);
+	gl.vertexAttribPointer(attribute, 3, gl.FLOAT, false, 0, 0);
+
+	gl.bindBuffer( gl.ELEMENT_ARRAY_BUFFER, entity.indexBuffer );
+	gl.drawElements( gl.TRIANGLES, entity.indexBuffer.numItems, gl.UNSIGNED_SHORT, 0 ); 
+}
+
+raptorjs.planet.prototype.renderAtmosphere = function() {
+
+	// transmittance
+	gl.bindFramebuffer(gl.FRAMEBUFFER, this.transmittanceUnit);
+	gl.viewport(0, 0, this.TRANSMITTANCE_W, this.TRANSMITTANCE_H);
+	
+	this.transmittance.update();
+	
+	var attribute = this.transmittance.getAttributeByName('position');
+	gl.bindBuffer(gl.ARRAY_BUFFER, this.quadVertexBuffer );
+	gl.vertexAttribPointer(attribute, 2, gl.FLOAT, false, 0, 0);
+	gl.drawArrays(gl.TRIANGLES, 0, 6);
+	
+	
+	// irradiance1
+	gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+	gl.viewport(0, 0, this.SKY_W, this.SKY_H);
+	
+	this.irradiance1.update();
+	
+	var attribute = this.irradiance1.getAttributeByName('position');
+	gl.bindBuffer(gl.ARRAY_BUFFER, this.quadVertexBuffer);
+	gl.vertexAttribPointer(attribute, 2, gl.FLOAT, false, 0, 0);
+	gl.drawArrays(gl.TRIANGLES, 0, 6);
+
+	
+	// inscatter1
+	var cubeSize = (this.RES_MU_S * this.RES_NU) * this.RES_MU * this.RES_R;
+	var textureSize = Math.sqrt( cubeSize );
+	
+	gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+	gl.viewport(0, 0, textureSize, textureSize);
+	
+	var shader = this.inscatter1;
+	
+    //for (var layer = 0; layer < this.RES_R; ++layer) {
+	//	this.setLayer(shader, layer);
+		
+		//shader.setUniform('raySampler', this.currentDeltaSRayUnit.sampler );
+	this.dSampler;
+	this.rSampler;
+	
+	shader.setUniform('dSampler', this.dSampler );
+	shader.setUniform('rSampler', this.rSampler );
+	shader.update();
+	
+	gl.bindFramebuffer(gl.FRAMEBUFFER, this.currentDeltaSRayUnit );
+	
+	
+	var attribute = shader.getAttributeByName('position');
+	gl.bindBuffer(gl.ARRAY_BUFFER, this.quadVertexBuffer );
+	gl.vertexAttribPointer(attribute, 2, gl.FLOAT, false, 0, 0);
+	
+	gl.drawArrays(gl.TRIANGLES, 0, 6);
+    //}
+	
+	
+	
+}
+
+
+raptorjs.planet.prototype.setLayer = function(shader, layer)
+{
+    var r = layer / (this.RES_R - 1.0);
+
+    r = r * r;
+
+    r = Math.sqrt(this.Rg * this.Rg + r * (this.Rt * this.Rt - this.Rg * this.Rg)) + (layer == 0 ? 0.01 : (layer == this.RES_R - 1 ? -0.001 : 0.0));
+    var dmin = this.Rt - r;
+    var dmax = Math.sqrt(r * r - this.Rg * this.Rg) + Math.sqrt(this.Rt * this.Rt - this.Rg * this.Rg);
+    var dminp = r - this.Rg;
+    var dmaxp = Math.sqrt(r * r - this.Rg * this.Rg);
+
+	
+	
+	shader.setUniform('r', r );
+	shader.setUniform('dhdH', [dmin, dmax, dminp, dmaxp] );
+}

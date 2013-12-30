@@ -1,0 +1,89 @@
+<html>
+	<head>
+		<title>Sponza</title>
+		
+		<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+	
+		<script type="text/javascript" src="raptor/utils.js"></script>
+		<script type="text/javascript" src="raptor/raptor.js"></script>
+		
+		<script type="text/javascript" src="raptor/logo.js"></script>
+		<script type="text/javascript" src="raptor/math.js"></script>
+		<script type="text/javascript" src="raptor/resourceManager.js"></script>
+		<script type="text/javascript" src="raptor/eventManager.js"></script>
+		<script type="text/javascript" src="raptor/transform.js"></script>
+		<script type="text/javascript" src="raptor/shader.js"></script>
+		<script type="text/javascript" src="raptor/camera.js"></script>
+		
+		<script type="text/javascript" src="raptor/mesh.js"></script>
+		<script type="text/javascript" src="raptor/subMesh.js"></script>
+		
+		<script type="text/javascript" src="raptor/entity.js"></script>
+		<script type="text/javascript" src="raptor/subEntity.js"></script>
+		
+		<script type="text/javascript" src="raptor/primitives.js"></script>
+		<script type="text/javascript" src="raptor/player.js"></script>
+		<script type="text/javascript" src="raptor/renderSystem.js"></script>
+		<script type="text/javascript" src="raptor/sceneNode.js"></script>
+		<script type="text/javascript" src="raptor/shadow.js"></script>
+		<script type="text/javascript" src="raptor/sampler2d.js"></script>
+		<script type="text/javascript" src="raptor/sampler3d.js"></script>
+		<script type="text/javascript" src="raptor/texture.js"></script>
+		<script type="text/javascript" src="raptor/boundingbox.js"></script>
+		<script type="text/javascript" src="raptor/material.js"></script>
+		<script type="text/javascript" src="raptor/skeleton.js"></script>
+		<script type="text/javascript" src="raptor/bone.js"></script>
+		<script type="text/javascript" src="raptor/animation.js"></script>
+		<script type="text/javascript" src="raptor/animationManager.js"></script>
+		<script type="text/javascript" src="raptor/sceneManager.js"></script>
+		
+		<script type="text/javascript" src="raptor/plugins/particleSandbox.js"></script>
+		
+		<script type="text/javascript" src="raptor/seaShore.js"></script>
+		
+		
+		<script type="text/javascript" src="raptor/sky.js"></script>
+		
+		<link rel="stylesheet" media="screen" type="text/css" href="style.css" />
+	
+		<script type="text/javascript" src="media/libs/jquery/jquery.js"></script>
+		<script type="text/javascript" src="media/libs/jquery/ui/minified/jquery-ui.custom.min.js"></script>
+		<script type="text/javascript" src="media/libs/jquery/colorpicker.js"></script>
+		
+		<script type="text/javascript" src="media/libs/xml2json.js"></script>
+		
+		<link type="text/css" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" rel="stylesheet" />
+		<link rel="stylesheet" media="screen" type="text/css" href="media/libs/jquery/colorpicker.css" />
+		
+	</head>
+	
+	<body style="border: none;" onload="if (typeof raptorjs != 'undefined') {   raptorjs.initialize(); }">
+		<canvas id="raptorEngine" style="border: none; width:100%; height: 100%; margin:0; padding:0;"></canvas>
+		<div id="controls">
+			<!-- Slide THREE -->
+			<div class="slideThree">	
+				<input type="checkbox" value="None" id="slideThree" name="check" onclick="setRenderMode();" />
+				<label for="slideThree"></label>
+			</div>
+			<label>
+				<select class="niceSelect"  onclick="setSSAO(this);">
+					<option>Fast</option>
+					<option>Heavy</option>
+					<option>Extreme</option>
+				</select>
+			</label>
+		</div>
+		<div id="loadingElements">
+			<div id="full">
+				<div id="loadingBar">
+					<div id="innerBar">
+					
+					</div>
+				</div>
+			</div>
+			<div id="loadingBlock">
+				<div id="inner">Downloading Models..</div>
+			</div>
+		</div>
+	</body>
+</html>
