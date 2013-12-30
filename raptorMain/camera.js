@@ -48,14 +48,11 @@ raptorjs.camera = function() {
 	this.projection;
 	this.worldViewProjection;
 	
-	this.target;
-	this.frustumCorners;
 	this.center = raptorjs.vector3(-146, 1383, 78);
-
+	
 	this.rotationSpeed = .1;
 
-	this.lastPriority = 0;
-	this.mode = "orbit";//freeLook, orbit
+	this.mode = "orbit"; //freeLook, orbit
 	this.fieldOfView = 65;
 	
 	this.far = 16000;
@@ -66,8 +63,8 @@ raptorjs.camera = function() {
  * Set camera position
  * @param {(vector3)} position you want to set
 **/
-raptorjs.camera.prototype.setPosition = function (a) {
-	this.center = a;
+raptorjs.camera.prototype.setPosition = function(p) {
+	this.center = p;
 };
 
 
@@ -143,7 +140,7 @@ raptorjs.camera.prototype.setOrientation  = function () {
 
 
 /**
- * Calculate new up vector to prevent camera flipping on 90 or something degrees.
+ * Calculate new up vector to prevent camera flipping on 90 degrees.
 **/
 raptorjs.camera.prototype.checkup = function () {
 	var that = this;
@@ -154,6 +151,7 @@ raptorjs.camera.prototype.checkup = function () {
 	else
 		that.up = raptorjs.vector3(0,-1,0);
 };
+
 
 /**
  * update camera orbit position.
@@ -182,13 +180,14 @@ raptorjs.camera.prototype.orbit = function() {
 	var smooth = raptorjs.vector2.interpolate(	raptor.events.clientMouse,
 												raptor.events.oldMousPos,
 												mix );
-	raptor.events.mouseVerschil = [raptor.events.clientMouse[0] - raptor.events.oldMousPos[0], raptor.events.clientMouse[1] - raptor.events.oldMousPos[1]];
+												
+	raptor.events.mouseDiff = [raptor.events.clientMouse[0] - raptor.events.oldMousPos[0], raptor.events.clientMouse[1] - raptor.events.oldMousPos[1]];
 
 	raptor.events.oldMousPos = raptor.events.clientMouse;
 
 	if( raptor.events.mouseDown[1] || raptor.events.mouseDown[2] ) {
-		if( raptor.events.mouseVerschil[0]!=0 || raptor.events.mouseVerschil[1]!=0 ) {
-			this.UpdateOrbit( -raptor.events.mouseVerschil[0] , raptor.events.mouseVerschil[1] );
+		if( raptor.events.mouseDiff[0]!=0 || raptor.events.mouseDiff[1]!=0 ) {
+			this.UpdateOrbit( -raptor.events.mouseDiff[0] , raptor.events.mouseDiff[1] );
 		}
 	}
 	
@@ -215,7 +214,6 @@ raptorjs.camera.prototype.orbit = function() {
 	
 	this.target = this.center;
 	this.eye = raptor.vector3.add( matrix4.transformDirection(transMatrix, beginVector), this.target);
-
 	
 	this.projection = raptorjs.matrix4.perspective(raptorjs.math.degToRad(this.fov), raptorjs.width / raptorjs.height, this.near, this.far);
 	this.view = raptorjs.matrix4.lookAt(this.eye, this.target, this.up);
@@ -230,27 +228,3 @@ raptorjs.camera.prototype.orbit = function() {
 raptorjs.camera.prototype.update = function() {
 	this.orbit();
 }
-
-
-
-/*
-getWorldDirection
-getWorldPosition
-getWorldUp
-getWorldRight
-
-getCameraToViewportRay (Real screenx, Real screeny)
-
-setOrthoWindow (Real w, Real h)
-setOrthoWindowHeight (Real h)
-setOrthoWindowWidth (Real w)
-
-getOrthoWindowHeight () 
-getOrthoWindowWidth () 
-
-setFar
-setNear
-
-getProjectionCorners
-getProjectionWorldCorners
-*/

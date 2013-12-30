@@ -38,7 +38,7 @@ THE SOFTWARE.
 raptorjs.eventManager = function() {
 	this.tempMouse = raptorjs.vector2(0,0);
 	this.oldMousPos = raptorjs.vector2(0,0);
-	this.mouseVerschil = raptorjs.vector2(0,0);
+	this.mouseDiff = raptorjs.vector2(0,0);
 	this.mouseDown = raptorjs.vector3(0,0,0);
 
 	var canvas = raptorjs.canvas;
