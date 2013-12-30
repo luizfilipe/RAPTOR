@@ -1,13 +1,33 @@
+/*
+-----------------------------------------------------------------------------
+This source file is part of Raptor Engine
+For the latest info, see http://www.raptorEngine.com
+
+Copyright (c) 2012-2013 Raptorcode
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+-----------------------------------------------------------------------------
+*/
+  
 /**
- * Raptor Engine - Core
- * Copyright (c) 2010 RAPTORCODE STUDIOS
- * All rights reserved.
- */
- 
- /**
  * Author: Kaj Dijksta
  */
-
 raptorjs.mesh = function() {
 	this._className = 'mesh';
 	this.fileName;
@@ -50,11 +70,21 @@ raptorjs.mesh = function() {
 	this.boneWeightBuffer2;
 };
 
+
+/**
+ * Set custom shader (Not yet in use)
+ * @param {(String)} name
+**/
 raptorjs.mesh.prototype.setCustomShader = function( name ) {
 	this.customShader = raptorjs.createObject("shader");
 	this.customShader.createLibraryFomFile("shaders/custom."+name+".shader");
 }
 
+
+/**
+ * Set custom shader (Not yet in use)
+ * @param {(String)} name
+**/
 raptorjs.mesh.prototype.addHeightmap = function( heightmap ) {
 	this.heightmap = heightmap;
 	
@@ -62,17 +92,34 @@ raptorjs.mesh.prototype.addHeightmap = function( heightmap ) {
 	this.infoShader.setUniform("heightmap", heightmap );
 }
 
+
+/**
+ * set material id
+ * @param {(int)} material id
+**/
 raptorjs.mesh.prototype.setMaterialId = function( id ) {
 	this.materialId = id;
 	//this.colorInfoShader.setUniform("materialId", this.materialId / 256 );
 }
 
+
+/**
+ * Load mesh from file
+ * @param {(String)} url to file
+**/
 raptorjs.mesh.prototype.loadMeshFromFile = function( url ) {
 	this.jsonStruture = JSON.parse(raptorjs.loadTextFileSynchronous('media/models/'+url));
 	this.fileName = url;
 	this.parseLoadedMesh();
 }
 
+
+/**
+ * Combine displacement and normal data in one texture
+ * @param {(Array)} displacement data
+ * @param {(Array)} normal data
+ * @return {(Sampler)} sampler
+**/
 raptorjs.mesh.prototype.combineDisplacementNormal = function( displacement, normal ) {
 
 	var displacementImage = displacement.data;
@@ -114,6 +161,9 @@ raptorjs.mesh.prototype.combineDisplacementNormal = function( displacement, norm
 }
 
 
+/**
+ * Create tangent and binormal vectors (* This is slow!!)
+**/
 raptorjs.mesh.prototype.createTangentAndBinormal = function( ) {
 	var bn = raptorjs.system.createTangentsAndBinormals(  this.vertexPositionBuffer,
 														  this.vertexNormalBuffer,
@@ -144,6 +194,10 @@ raptorjs.mesh.prototype.createTangentAndBinormal = function( ) {
 }
 
 
+/**
+ * set mesh name based on the material types that are used 
+ * @param {(MaterialObject)} Material
+**/
 raptorjs.mesh.prototype.setName = function( material ) {
 	var name = this.name;
 	
@@ -166,6 +220,11 @@ raptorjs.mesh.prototype.setName = function( material ) {
 	
 }
 
+
+/**
+ * add material to mesh 
+ * @param {(MaterialObject)} Material
+**/
 raptorjs.mesh.prototype.addMaterial = function( material ) {
 
 	this.materials.push(material);
@@ -274,7 +333,10 @@ raptorjs.mesh.prototype.addMaterial = function( material ) {
 }
 
 
-
+/**
+ * load object from file >?>
+ * @param {(string)} url
+**/
 raptorjs.mesh.prototype.loadObjFromFile = function( url ) {
 
 	var objText = raptorjs.loadTextFileSynchronous(url);
@@ -294,7 +356,10 @@ raptorjs.mesh.prototype.loadObjFromFile = function( url ) {
 }
 
 
-
+/**
+ * parse mesh, load extra mesh data into buffers
+ * @param {(string)} url
+**/
 raptorjs.mesh.prototype.parseLoadedMesh = function( url ) {
 
 	var subMesh = raptorjs.createObject('subMesh');
@@ -359,6 +424,7 @@ raptorjs.mesh.prototype.parseLoadedMesh = function( url ) {
 }
 
 
+
 raptorjs.mesh.prototype.addBoneWeights = function( boneIndices, boneWeights, bones ) {
 	this.boneWeightBuffer = gl.createBuffer();
 	gl.bindBuffer(gl.ARRAY_BUFFER, this.boneWeightBuffer);
@@ -378,6 +444,15 @@ raptorjs.mesh.prototype.addBoneWeights = function( boneIndices, boneWeights, bon
 }
 
 
+/**
+ * Create mesh from arrays
+ * @param {(array)} indices
+ * @param {(array)} vertices
+ * @param {(array)} normals
+ * @param {(array)} uvs
+ * @param {(array)} tangents
+ * @param {(array)} binormals
+**/
 raptorjs.mesh.prototype.createMeshFromArrays = function( indices, vertices, normals, uvs, tangents, bitangents ) {
 
 	//todo: loop trough sub meshes
@@ -460,6 +535,10 @@ raptorjs.mesh.prototype.createMeshFromArrays = function( indices, vertices, norm
 }
 
 
+/**
+ * write content to ext console
+ * @param {(string)} content
+**/
 function writeConsole(content) {
  top.consoleRef=window.open('','myconsole',
   'width=350,height=250'
@@ -476,11 +555,22 @@ function writeConsole(content) {
  )
  top.consoleRef.document.close()
 }
+
+/**
+ * Show tangent
+ * @param {(submesh)} 
+**/
 raptorjs.mesh.prototype.showTangent = function( subMesh ) {
 
 
 	writeConsole( this.fileName + ' Tangent ' + JSON.stringify(this.tangentBuffer.data) );
 }
+
+
+/**
+ * Show Binormal
+ * @param {(submesh)} 
+**/
 raptorjs.mesh.prototype.showBinormal = function( subMesh ) {
 	var tangentArray = this.binormalBuffer.data;
 	var a = [];
@@ -496,6 +586,11 @@ raptorjs.mesh.prototype.showBinormal = function( subMesh ) {
 	writeConsole( this.fileName + ' binormal ' + JSON.stringify(a) );
 }
 
+
+/**
+ * add submesh to mesh
+ * @param {(subMesh)} 
+**/
 raptorjs.mesh.prototype.addSubMesh = function( subMesh ) {
 
 	this.vertexIndexBuffer = subMesh.indexBuffer;
