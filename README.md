@@ -45,7 +45,7 @@ RaptorEngine - a Open Source 3D Graphics Engine Based On Webgl
 -   Shader Validation
 
 
-Shading and Lighting
+###Shading and Lighting
 
 At the Heart of Raptor engine lies 1 uber shader Where all possible material shading types are being 
 processed, like shadow occlusion and all the different maps and bones etc. Every material is rendered
