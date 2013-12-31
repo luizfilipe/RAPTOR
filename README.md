@@ -28,21 +28,21 @@ RaptorEngine - a Open Source 3D Graphics Engine Based On Webgl
 
 ## Features 
 
-1.  Diffuse Mapping
-2.  Specular Mapping
-bump Mapping
-offset Mapping (parallax)
-Alpha Mapping
-Ambient mapping
-Gloss mapping
-Spherical projected shadow mapping
-PSSM (parallel split shadow mapping)
-Variance Shadow mapping
-Screen Space Ambient Occlusion
-Modular custom shading system
-Texture Mapping
-CubeTexture Mapping
-Shader Validation
+-   Diffuse Mapping
+-   Specular Mapping
+-   bump Mapping
+-   offset Mapping (parallax)
+-   Alpha Mapping
+-   Ambient mapping
+-   Gloss mapping
+-   Spherical projected shadow mapping
+-   PSSM (parallel split shadow mapping)
+-   Variance Shadow mapping
+-   Screen Space Ambient Occlusion
+-   Modular custom shading system
+-   Texture Mapping
+-   CubeTexture Mapping
+-   Shader Validation
 
 
 Shading and Lighting
