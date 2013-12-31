@@ -72,7 +72,7 @@ Animations, Bones, transformations, hierarchies, Scenes and other Data structure
 
 
 
-The Assimp data structure is deeply embedded in the Raptorengine pipeline, First one needs to convert the 
+The Assimp data structure is deeply embedded into the Raptorengine pipeline, First one needs to convert the 
 specified 3d format to json using the AssimpToJson executable one can find at:
 
 https://github.com/kajdijkstra/RAPTOR/tree/master/assimp 
