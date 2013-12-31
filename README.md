@@ -22,7 +22,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ________________________________________________________________________________
 
-
+![Screenshot 1](http://raptorcode.com/images/news/screens/10-4.png)
 
 ## Features 
 
@@ -41,6 +41,8 @@ ________________________________________________________________________________
 -   Texture Mapping
 -   CubeTexture Mapping
 -   Shader Validation
+   
+
 
 
 ###Shading and Lighting
@@ -68,6 +70,8 @@ it searches for maps trough the use of the prefix in the filename of the texture
 
 Animations, Bones, transformations, hierarchies, Scenes and other Data structures are all preserved in Raptor engine. 
 
+
+![Screenshot 2](http://raptorcode.com/images/news/screens/10-3.png)
 
 ### Importer
 
