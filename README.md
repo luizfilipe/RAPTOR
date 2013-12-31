@@ -1,4 +1,4 @@
-#
+
 -----------------------------------------------------------------------------
 Copyright (c) 2013-2014 Raptorcode
 
@@ -17,12 +17,13 @@ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN 
+THE SOFTWARE.
 -----------------------------------------------------------------------------
-#
 
 
-### RaptorEngine ### - ## a Open Source 3D Graphics Engine Based On Webgl ##
+
+## RaptorEngine  -  a Open Source 3D Graphics Engine Based On Webgl 
 
 
 ## Features 
