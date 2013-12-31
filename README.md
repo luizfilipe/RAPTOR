@@ -17,13 +17,12 @@ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -----------------------------------------------------------------------------
 
 
 
-RaptorEngine - a Open Source 3D Graphics Engine Based On Webgl
+### RaptorEngine ### - ## a Open Source 3D Graphics Engine Based On Webgl ##
 
 
 ## Features 
@@ -62,14 +61,16 @@ The Custom shader here: https://github.com/kajdijkstra/RAPTOR/blob/master/shader
 Because different maps often get lost when being exported with 3ds max, I have have made the engine such that
 it searches for maps trough the use of the prefix in the filename of the texture, So for example:
 
-Texture_diff.png	// Diffuse
-Texture_spec.png	// Specular
-Texture_ddn.png		// Normal
+-  Texture_diff.png	// Diffuse
+-  Texture_spec.png	// Specular
+-  Texture_ddn.png	// Normal
+-  Texture_glo.png	// gloss
+
 
 Animations, Bones, transformations, hierarchies, Scenes and other Data structures are all preserved in Raptor engine. 
 
 
-Importer
+### Importer
 
 The Assimp data structure is deeply embedded in the Raptorengine pipeline, First one needs to convert the 
 specified 3d format to json using the AssimpToJson executable one can find at:
