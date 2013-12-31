@@ -64,17 +64,14 @@ Author: Kaj Dijksta
 		raptorjs.events = raptorjs.createObject("eventManager");
 		raptorjs.scene = raptorjs.createObject("sceneNode");
 		raptorjs.mainCamera = raptorjs.createObject("camera");
-		
-		raptorjs.mainCamera.update();
-		raptorjs.mainPlayer.update();
-			
-		//raptorjs.testAnimationManager = raptorjs.createObject("animationManager");
 		raptorjs.resources = raptorjs.createObject("resourceManager");
 		
 		//set camera and scene
 		raptorjs.system.setCamera( raptorjs.mainCamera );
 		raptorjs.system.setScene( raptorjs.scene );
 
+		
+		//gets called after the resources are loaded
 		raptorjs.resources.finishCallback = function( ) {	
 		
 			raptorjs.createErrorTexture();
@@ -82,14 +79,11 @@ Author: Kaj Dijksta
 
 			var sceneManager = raptorjs.createObject("sceneManager");
 
-			sceneManager.createScene("Sponza", "scene.json");//testt
-
-			raptorjs.system.createDeferredBuffers();
+			sceneManager.createScene("Sponza", "scene.json");
 			
 			tick();	
 		}
 		
-
 
 		raptorjs.resources.addTexture("media/textures/sky.png", 'sky');
 

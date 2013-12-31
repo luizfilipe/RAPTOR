@@ -1,5 +1,7 @@
+## RaptorEngine - a Open Source 3D Graphics Engine Based On Webgl 
 
------------------------------------------------------------------------------
+
+_______________________________________________________________________________
 Copyright (c) 2013-2014 Raptorcode
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -12,18 +14,14 @@ furnished to do so, subject to the following conditions:
 The above copyright notice and this permission notice shall be included in
 all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED AS IS, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN 
-#THE SOFTWARE.
------------------------------------------------------------------------------
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+________________________________________________________________________________
 
-
-
-# RaptorEngine  -  a Open Source 3D Graphics Engine Based On Webgl 
 
 
 ## Features 
@@ -87,17 +85,14 @@ currently supports 41 different file formats for reading, including COLLADA (.da
 3DS, DirectX X, Wavefront OBJ and Blender 3D (.blend)
 
 
-
-Working list (Things now being worked on):
-
-	Skeleton
-	Skeleton Animation
 	
-	
-Examples (This is how it works)
+### Examples 
 
 
-raptor.js
+#### Hello World
+
+[raptor.js](https://github.com/kajdijkstra/RAPTOR/blob/master/raptorMain/raptor.js)
+
 	
 	raptorjs.resources.addTexture("media/textures/helloWorld.png", 'helloWorld');
 
@@ -157,8 +152,13 @@ texture.shader
 
 	
 	
-	- Render To Framebuffer
 	
+	
+
+#### Working list (Things now being worked on):
+
+	Skeleton
+	Skeleton Animation
 	
 	
 
