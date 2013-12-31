@@ -22,8 +22,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ________________________________________________________________________________
 
-![Screenshot 1](http://raptorcode.com/images/news/screens/10-4.png)
-
 ## Features 
 
 -   Diffuse Mapping
@@ -47,12 +45,11 @@ ________________________________________________________________________________
 
 ###Shading and Lighting
 
+![Screenshot 1](http://raptorcode.com/images/news/screens/10-4.png)
+
 At the Heart of Raptor engine lies 1 uber shader Where all possible material shading types are being 
 processed, like shadow occlusion and all the different maps and bones etc. Every material is rendered
-using the same Ubershader, The data is being structured here in universal way and all the complex algorithms 
-are also in here. The lightning is done in a "Custom shader", This is a very tiny shader that only 
-calculates the lightning. If you want pong lightning you can just use the default Custom shader "custom.default.shader"
-in the shader folder, If you want a different lightning type you can write one yourself . 
+using the same Ubershader, The data is being structured here in universal way. The lightning is done in a "Custom shader", This is a very tiny shader that only calculates the lighting. If you want pong lightning you can just use the default Custom shader "custom.default.shader" in the shader folder, If you want a different lighting type you can write one yourself. 
 
 The ubershader you can find in "https://github.com/kajdijkstra/RAPTOR/blob/master/shaders/colorInfo.shader"
 
