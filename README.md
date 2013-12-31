@@ -28,8 +28,8 @@ RaptorEngine - a Open Source 3D Graphics Engine Based On Webgl
 
 ## Features 
 
-Diffuse Mapping
-Specular Mapping
+1.  Diffuse Mapping
+2.  Specular Mapping
 bump Mapping
 offset Mapping (parallax)
 Alpha Mapping
