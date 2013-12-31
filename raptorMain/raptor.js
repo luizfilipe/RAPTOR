@@ -1,7 +1,7 @@
 /*
 -----------------------------------------------------------------------------
 This source file is part of Raptor Engine
-For the latest info, see http://www.raptorEngine.com
+For the latest info, see http://www.raptorcode.com
 
 Copyright (c) 2013-2014 Raptorcode
 
