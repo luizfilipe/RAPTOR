@@ -71,9 +71,9 @@ it searches for maps trough the use of the prefix in the filename of the texture
 Animations, Bones, transformations, hierarchies, Scenes and other Data structures are all preserved in Raptor engine. 
 
 
-![Screenshot 2](http://raptorcode.com/images/news/screens/10-3.png)
-
 ### Importer
+
+
 
 The Assimp data structure is deeply embedded in the Raptorengine pipeline, First one needs to convert the 
 specified 3d format to json using the AssimpToJson executable one can find at:
