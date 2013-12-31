@@ -72,7 +72,7 @@ Animations, Bones, transformations, hierarchies, Scenes and other Data structure
 Importer
 
 The Assimp data structure is deeply embedded in the Raptorengine pipeline, First one needs to convert the 
-specified 3d format to json using the AssimpToJson executable one can fine at:
+specified 3d format to json using the AssimpToJson executable one can find at:
 
 https://github.com/kajdijkstra/RAPTOR/tree/master/assimp 
 
@@ -90,4 +90,72 @@ Working list (Things now being worked on):
 
 	Skeleton
 	Skeleton Animation
+	
+	
+Examples
+
+	- Render Texture
+
+	helloWorld.js
+	
+		raptorjs.helloWorld = function () {
+
+			var texture = raptorjs.resources.getTexture("helloWorld");
+			
+			var sampler =  raptorjs.createObject("sampler2D");
+			
+			sampler.MIN_FILTER = gl.NEAREST;
+			sampler.MAG_FILTER = gl.NEAREST;
+			sampler.WRAP_S = gl.CLAMP_TO_EDGE;
+			sampler.WRAP_T = gl.CLAMP_TO_EDGE;
+			sampler.texture = backgroundTexture;
+			
+			this.textureShader = raptorjs.createObject("shader");
+			this.textureShader.createFomFile("shaders/texture.shader");
+			this.textureShader.setUniform("texture", sampler);
+			
+		}
+
+		raptorjs.helloWorld.prototype.update = function() {
+			raptorjs.system.drawQuad( this.textureShader, null );
+		}
+		
+	
+	texture.shader
+	
+		attribute vec3 position;
+		attribute vec2 uv;
+		
+		uniform mat4 worldViewProjection;
+
+		varying vec2 v_uv;
+
+		void main(void) {
+			v_uv = uv ;
+			gl_Position = worldViewProjection * vec4(position, 1.0);
+		}
+		
+		// #raptorEngine - Split
+		
+		precision highp float;
+
+		varying vec2 v_uv;
+		
+		uniform sampler2D texture;
+
+		void main() {
+			gl_FragColor = texture2D(texture, v_uv);
+		}
+		
+		
+	
+	
+	
+	
+	- Render To Framebuffer
+	
+	
+	
+
+
 	
