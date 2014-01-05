@@ -46,8 +46,8 @@ ________________________________________________________________________________
 ###Shading and Lighting
 
 At the Heart of Raptor engine lies 1 uber shader Where all possible material shading types are being 
-processed, like shadow occlusion and all the different maps and bones etc. Every material is rendered
-using the same Ubershader, The data is being structured here in universal way. The lighting is done in a "Custom shader", This is a very tiny shader that only calculates the lighting. If you want pong lightning you can just use the default Custom shader "custom.default.shader" in the shader folder, If you want a different lighting type you can write one yourself. 
+processed ( shadow occlusion and all the different maps and bones etc.). Every material is rendered
+using the same Ubershader, The data is being structured here in a universal way. The lighting is done in a "Custom shader", This is a very tiny shader that only calculates the lighting. If you want pong lightning you can just use the default Custom shader "custom.default.shader" in the shader folder, If you want a different lighting type you can write one yourself. 
 
 The ubershader you can find in "https://github.com/kajdijkstra/RAPTOR/blob/master/shaders/colorInfo.shader"
 
