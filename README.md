@@ -22,6 +22,15 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ________________________________________________________________________________
 
+   
+
+RaptorEngine is a scene-oriented, flexible 3D engine written in Javascript designed to make it
+easier and more intuitive for developers to produce games and demos
+utilising 3D hardware. The class library abstracts all the details of
+using the underlying system librarie Webgl (pengl-ES) and
+provides an interface based on world objects and other intuitive
+
+
 ## Features 
 
 -   Diffuse Mapping
@@ -39,13 +48,12 @@ ________________________________________________________________________________
 -   Texture Mapping
 -   CubeTexture Mapping
 -   Shader Validation
-   
 
 
 
 ###Shading and Lighting
 
-At the Heart of Raptor engine lies 1 uber shader Where all possible material shading types are being 
+At the Heart of Raptor engine lies 1 uber shader, Where all possible material shading types are being 
 processed ( shadow occlusion and all the different maps and bones etc.). Every material is rendered
 using the same Ubershader, The data is being structured here in a universal way. The lighting is done in a "Custom shader", This is a very tiny shader that only calculates the lighting. If you want pong lightning you can just use the default Custom shader "custom.default.shader" in the shader folder, If you want a different lighting type you can write one yourself. 
 
@@ -67,7 +75,6 @@ Animations, Bones, transformations, hierarchies, Scenes and other Data structure
 
 
 ### Importer
-
 
 
 The Assimp data structure is deeply embedded into the Raptorengine pipeline, First one needs to convert the 
@@ -95,6 +102,7 @@ currently supports 41 different file formats for reading, including COLLADA (.da
 	Skeleton
 	Skeleton Animation
 	Add code examples
+	Make readme
 	
 
 
