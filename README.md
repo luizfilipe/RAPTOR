@@ -25,9 +25,7 @@ ________________________________________________________________________________
    
 ## Summary
 
-RaptorEngine is a scene-oriented, elegant performance oriented 3D engine written in Javascript designed to make it easier and more intuitive for developers to produce games and demos
-utilizing 3D hardware in the Web browser. The class library abstracts all the details of
-using the underlying system library Webgl (Opengl-ES). RaptorEngine is a fully intergrated Render engine with a advanced render pipeline that enables advanced graphics and lighting techniques out of the box.
+RaptorEngine is a scene-oriented, elegant performance oriented 3D engine written in Javascript designed to make it easier and more intuitive for developers to produce games and demos utilizing 3D hardware in the Web browser. The class library abstracts all the details of using the underlying system library Webgl (Opengl-ES). With a fully intergrated Render engine Raptorengine delivers an advanced render pipeline that enables advanced graphics and lighting techniques out of the box. 
 
 
 ## Features 
