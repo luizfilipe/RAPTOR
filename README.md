@@ -47,6 +47,7 @@ RaptorEngine is a scene-oriented, elegant performance oriented 3D engine written
 -   Shader Validation
 
 
+ ![Flow chart](http://postimg.org/image/y8amv22m5/)
 
 ###Shading and Lighting
 
