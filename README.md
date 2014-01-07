@@ -23,6 +23,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
 ________________________________________________________________________________
 
    
+## Summary
 
 RaptorEngine is a scene-oriented, flexible 3D engine written in Javascript designed to make it
 easier and more intuitive for developers to produce games and demos
