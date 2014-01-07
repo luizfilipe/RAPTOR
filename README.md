@@ -45,9 +45,8 @@ RaptorEngine is a scene-oriented, elegant performance oriented 3D engine written
 -   Texture Mapping
 -   CubeTexture Mapping
 -   Shader Validation
+   
 
-
- ![Flow chart](http://s30.postimg.org/k1uvztrr5/Raptorengine_Flowchart.png)
 
 ###Shading and Lighting
 
@@ -91,8 +90,11 @@ currently supports 41 different file formats for reading, including COLLADA (.da
 
 
 	
-	
-	
+# Flow Chart
+
+
+ ![Flow chart](http://s29.postimg.org/sfhkrc5o7/Raptorengine_Flowchart.png)
+
 	
 
 #### Working list (Things now being worked on):
