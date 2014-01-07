@@ -25,10 +25,10 @@ ________________________________________________________________________________
    
 ## Summary
 
-RaptorEngine is a scene-oriented, flexible 3D engine written in Javascript designed to make it
+RaptorEngine is a scene-oriented, elegant performance oriented 3D engine written in Javascript designed to make it
 easier and more intuitive for developers to produce games and demos
 utilising 3D hardware. The class library abstracts all the details of
-using the underlying system librarie Webgl (pengl-ES) and
+using the underlying system librarie Webgl (Opengl-ES) and
 provides an interface based on world objects and other intuitive
 
 
