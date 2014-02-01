@@ -73,7 +73,7 @@ Author: Kaj Dijksta
 			
 			
 			
-			self.postMessage(arrayBuffers);
+			//self.postMessage(arrayBuffers);
 			
 		}
 			
