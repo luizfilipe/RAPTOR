@@ -52,7 +52,6 @@ Author: Kaj Dijksta
 		}
 		
 		return request.responseText;
-			return shaders;
 	}
 	
 	function process() {
